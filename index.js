@@ -77,7 +77,12 @@ document.getElementById("search-button").addEventListener("click", () => {
         //showing spiner before api call
         toggleSpinner("block");
         toggleAlert("none");
-        let jsonData = fetchBooks(searchText);
-        displayBooks(jsonData);
+        try {
+            let jsonData = fetchBooks(searchText);
+            displayBooks(jsonData);
+        }
+        catch (error) {
+            toggleAlert("block", "Failed to fetch books!");
+        }
     }
 })
