@@ -37,8 +37,28 @@ let displayBooks = async jsonData => {
     }
     else {
         document.getElementById("total-books").innerText = `About ${books.numFound} results`;
+        books.docs.forEach(book => {
+            let bookCard = document.createElement("div");
+            let image = "./dummy.jfif";
+            if (book?.cover_i) {
+                image = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
+            }
+            bookCard.innerHTML = `
+            <div class="card m-2" style="width: 18rem;">
+            <div class="h-75">
+                <img src="${image}" class="card-img-top h-100">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">${book.title}</h5>
+                <p class="card-text">Author: ${book.author_name}</p>
+                <p class="card-text">Publisher: ${book.publisher}</p>
+                <p class="card-text">First Publish: ${book.first_publish_year}</p>
+            </div>
+            </div>
+            `;
+            document.getElementById("books-section").append(bookCard);
+        })
     }
-    // document.getElementById("books-section").innerText(books.docs)
 }
 
 //initially hide spinner
