@@ -22,8 +22,13 @@ let clearPreviousData = () => {
 }
 
 let fetchBooks = async searchText => {
-    let response = await fetch(`http://openlibrary.org/search.json?q=${searchText}`);
-    let jsonData = await response.json();
+    let response = await fetch(`https://openlibrary.org/search.json?q=${searchText}`);
+    try {
+        let jsonData = await response.json();
+    }
+    catch (e) {
+        toggleAlert("block", "Failed to fetch books!");
+    }
     return jsonData;
 }
 
@@ -77,12 +82,7 @@ document.getElementById("search-button").addEventListener("click", () => {
         //showing spiner before api call
         toggleSpinner("block");
         toggleAlert("none");
-        try {
-            let jsonData = fetchBooks(searchText);
-            displayBooks(jsonData);
-        }
-        catch (error) {
-            toggleAlert("block", "Failed to fetch books!");
-        }
+        let jsonData = fetchBooks(searchText);
+        displayBooks(jsonData);
     }
 })
