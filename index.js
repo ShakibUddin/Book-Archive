@@ -49,10 +49,10 @@ let displayBooks = async jsonData => {
                 <img src="${image}" class="card-img-top h-100">
             </div>
             <div class="card-body">
-                <h5 class="card-title">${book.title}</h5>
-                <p class="card-text">Author: ${book.author_name}</p>
-                <p class="card-text">Publisher: ${book.publisher}</p>
-                <p class="card-text">First Publish: ${book.first_publish_year}</p>
+                <p class="card-title fs-4 fw-bold">${book?.title}</p>
+                <p class="card-text"><b>Author:</b> ${book?.author_name}</p>
+                <p class="card-text"><b>Publisher:</b> ${book?.publisher}</p>
+                <p class="card-text"><b>First Publish:</b> ${book?.first_publish_year}</p>
             </div>
             </div>
             `;
