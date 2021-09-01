@@ -23,12 +23,7 @@ let clearPreviousData = () => {
 
 let fetchBooks = async searchText => {
     let response = await fetch(`https://openlibrary.org/search.json?q=${searchText}`);
-    try {
-        let jsonData = await response.json();
-    }
-    catch (e) {
-        toggleAlert("block", "Failed to fetch books!");
-    }
+    let jsonData = await response.json();
     return jsonData;
 }
 
@@ -38,7 +33,7 @@ let displayBooks = async jsonData => {
     //hiding spinner when data is loaded
     toggleSpinner("none");
     if (books.numFound === 0) {
-        toggleAlert("block", `Your search did not match any documents.`)
+        toggleAlert("block", "Your search did not match any documents");
     }
     else {
         document.getElementById("total-books").innerText = `About ${books.numFound} results`;
