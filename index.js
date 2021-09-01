@@ -29,24 +29,23 @@ let fetchBooks = async searchText => {
 
 let displayBooks = async jsonData => {
     let books = await jsonData;
-    console.log(books);
     //hiding spinner when data is loaded
     toggleSpinner("none");
     if (books.numFound === 0) {
         toggleAlert("block", "Your search did not match any documents");
     }
     else {
-        document.getElementById("total-books").innerText = `About ${books.numFound} results`;
+        document.getElementById("total-books").innerText = `Found ${books.numFound} book(s)`;
         books.docs.forEach(book => {
             let bookCard = document.createElement("div");
-            let image = "./dummy.jfif";
+            let image = "./dummy.jpg";
             if (book?.cover_i) {
                 image = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
             }
             bookCard.innerHTML = `
-            <div class="card m-2" style="width: 18rem;">
-            <div class="h-75">
-                <img src="${image}" class="card-img-top h-100">
+            <div class="card m-2 shadow-lg p-3 rounded">
+            <div class="col-12">
+                <img src="${image}" class="card-img-top p-3" style="width: 100%;height: 300px;object-fit:cover;">
             </div>
             <div class="card-body">
                 <p class="card-title fs-4 fw-bold">${book?.title}</p>
