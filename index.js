@@ -1,0 +1,63 @@
+let extractSearchText = () => {
+    let searchBox = document.getElementById("search-box");
+    let text = searchBox.value;
+    searchBox.value = "";
+    return text;
+}
+
+let toggleAlert = (displayStyle, message) => {
+    if (displayStyle === "block") {
+        document.getElementById("alert-text").innerText = message;
+    }
+    document.getElementById("alert-text").style.display = displayStyle;
+}
+
+let toggleSpinner = displayStyle => {
+    document.getElementById("spinner").style.display = displayStyle;
+}
+
+let clearPreviousData = () => {
+    document.getElementById("total-books").textContent = "";
+    document.getElementById("books-section").textContent = "";
+}
+
+let fetchBooks = async searchText => {
+    let response = await fetch(`http://openlibrary.org/search.json?q=${searchText}`);
+    let jsonData = await response.json();
+    return jsonData;
+}
+
+let displayBooks = async jsonData => {
+    let books = await jsonData;
+    console.log(books);
+    //hiding spinner when data is loaded
+    toggleSpinner("none");
+    if (books.numFound === 0) {
+        toggleAlert("block", `Your search did not match any documents.`)
+    }
+    else {
+        document.getElementById("total-books").innerText = `About ${books.numFound} results`;
+    }
+    // document.getElementById("books-section").innerText(books.docs)
+}
+
+//initially hide spinner
+toggleSpinner("none");
+//initially hide alert text
+toggleAlert("none");
+
+document.getElementById("search-button").addEventListener("click", () => {
+    let searchText = extractSearchText();
+    if (searchText.length === 0) {
+        toggleAlert("block", "Search box is empty!");
+    }
+    else {
+        //clearing previous data before new api call
+        clearPreviousData();
+        //showing spiner before api call
+        toggleSpinner("block");
+        toggleAlert("none");
+        let jsonData = fetchBooks(searchText);
+        displayBooks(jsonData);
+    }
+})
