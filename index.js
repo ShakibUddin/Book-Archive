@@ -38,20 +38,25 @@ let displayBooks = async jsonData => {
         document.getElementById("total-books").innerText = `Found ${books.numFound} book(s)`;
         books.docs.forEach(book => {
             let bookCard = document.createElement("div");
+            let title = !book?.title ? "Unknown" : book?.title;
+            let author = !book?.author_name ? "Unknown" : book?.author_name[0];
+            let publisher = !book?.publisher ? "Unknown" : book?.publisher[0];
+            let publishYear = !book?.first_publish_year ? "Unknown" : book?.first_publish_year;
             let image = "./dummy.jpg";
+            console.log(Array.isArray(publisher));
             if (book?.cover_i) {
                 image = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
             }
             bookCard.innerHTML = `
-            <div class="card m-2 shadow-lg p-3 rounded">
+            <div class="card m-2 shadow-lg p-3 rounded h-100">
             <div class="col-12">
-                <img src="${image}" class="card-img-top p-3" style="width: 100%;height: 300px;object-fit:cover;">
+                <img src="${image}" class="card-img-top p-3 w-100" style="height: 500px;object-fit:cover;">
             </div>
             <div class="card-body">
-                <p class="card-title fs-4 fw-bold">${book?.title}</p>
-                <p class="card-text"><b>Author:</b> ${book?.author_name}</p>
-                <p class="card-text"><b>Publisher:</b> ${book?.publisher}</p>
-                <p class="card-text"><b>First Publish:</b> ${book?.first_publish_year}</p>
+                <p class="card-text fs-5 fw-bold text-center text-primary">${title}</p>
+                <p class="card-text"><b>Author:</b> ${author}</p>
+                <p class="card-text"><b>Publisher:</b> ${publisher}</p>
+                <p class="card-text"><b>First Publish:</b> ${publishYear}</p>
             </div>
             </div>
             `;
