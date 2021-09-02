@@ -52,7 +52,7 @@ let displayBooks = async jsonData => {
                 <img src="${image}" class="card-img-top p-3 w-100" style="height: 500px;object-fit:cover;">
             </div>
             <div class="card-body">
-                <p class="card-text fs-4 fw-bold text-center text-primary">${title}</p>
+                <p class="card-text fs-4 fw-bold text-primary">${title}</p>
                 <p class="card-text"><b>Author:</b> ${author}</p>
                 <p class="card-text"><b>Publisher:</b> ${publisher}</p>
                 <p class="card-text"><b>First Publish:</b> ${publishYear}</p>
